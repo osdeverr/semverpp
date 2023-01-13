@@ -1,5 +1,2 @@
 type: static-library
 name: .semverpp
-
-cxx-compile-definitions-public:
-  SEMVERPP_COMPILED_LIB: 1
