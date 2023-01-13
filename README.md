@@ -26,8 +26,7 @@ deps:
 
 /* <...> */
 
-semverpp::version version = "1.2.3";
-// or semverpp::version version{"1.2.3"}
+semverpp::version version{"1.2.3"};
 // or semverpp::version version{1, 2, 3}
 
 assert(version > semverpp::version{"1.2"} && version < semverpp::version{"1.3"});
