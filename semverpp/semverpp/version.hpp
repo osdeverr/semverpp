@@ -71,7 +71,7 @@ namespace semverpp
 
         ////////////////////////////////////////////////////
 
-        version(std::string_view string)
+        explicit version(std::string_view string)
         {
             auto curr = string.data();
 
