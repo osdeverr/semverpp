@@ -1,0 +1,5 @@
+**/out/
+**/.re-cache/
+**/.vscode/
+
+**/re.user.yml
