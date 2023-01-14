@@ -43,6 +43,10 @@ namespace semverpp
         std::string prerelease;
         std::string build_metadata;
 
+        version()
+        : major{0}, minor{1}, patch{0}
+        {}
+
         version(int major, int minor, int patch)
         : major{major}, minor{minor}, patch{patch}
         { verify(); }
