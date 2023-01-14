@@ -218,19 +218,23 @@ namespace semverpp
 
         if (comp_num(lhs.major, rhs.major))
             return true;
-        
+
         if (lhs.major == rhs.major &&
-            comp_num(lhs.minor, rhs.minor)
-        )
-            return true;
-            
-        if (lhs.major == rhs.major &&
-            lhs.minor == rhs.minor &&
-            comp_num(lhs.patch, rhs.patch)
-        )
+            comp_num(lhs.minor, rhs.minor))
             return true;
 
-        if (comp_str(lhs.prerelease, rhs.prerelease))
+        if (lhs.major == rhs.major &&
+            lhs.minor == rhs.minor &&
+            comp_num(lhs.patch, rhs.patch))
+            return true;
+
+        if (lhs.major == rhs.major &&
+            lhs.minor == rhs.minor &&
+            lhs.patch == rhs.patch &&
+            !lhs.prerelease.empty() &&
+            !rhs.prerelease.empty() &&
+            comp_str(lhs.prerelease, rhs.prerelease)
+        )
             return true;
 
         return false;
