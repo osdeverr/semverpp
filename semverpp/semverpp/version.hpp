@@ -142,6 +142,10 @@ namespace semverpp
         version(const version&) = default;
         version(version&&) = default;
 
+        version& operator=(const version&) = default;
+
+        ////////////////////////////////////////////////////
+
         inline std::string string() const
         {
             std::string result;
