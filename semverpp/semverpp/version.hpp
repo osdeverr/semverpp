@@ -247,7 +247,7 @@ namespace semverpp
     
     inline bool operator>=(const version& lhs, const version& rhs)
     {
-        return compare_versions_with<std::greater_equal>(lhs, rhs);
+        return lhs == rhs || compare_versions_with<std::greater>(lhs, rhs);
     }
     
     inline bool operator<(const version& lhs, const version& rhs)
@@ -257,7 +257,7 @@ namespace semverpp
     
     inline bool operator<=(const version& lhs, const version& rhs)
     {
-        return compare_versions_with<std::less_equal>(lhs, rhs);
+        return lhs == rhs || compare_versions_with<std::less_equal>(lhs, rhs);
     }
 
     inline std::ostream& operator<<(std::ostream& os, const version& version)
