@@ -80,14 +80,14 @@ namespace semverpp
             auto curr = string.data();
 
             // Skip any non-digit characters from the version string
-            while (!std::isdigit(*curr))
+            while (*curr && !std::isdigit(*curr))
                 curr++;
 
             auto end = string.data() + string.size();
 
-            std::from_chars_result result = std::from_chars(curr, end, major);
+            std::from_chars_result result{};
 
-            if ((result = std::from_chars(curr, end, minor)).ptr == curr)
+            if ((result = std::from_chars(curr, end, major)).ptr == curr)
                 throw invalid_version(std::string{"in version "} + string.data() + ": failed to parse major version number");
 
             if (*(curr + 1) && std::isdigit(*(curr + 2)))
@@ -115,7 +115,7 @@ namespace semverpp
                 curr++;
                 auto prerel_end = curr;
 
-                while(*prerel_end != '\0' && *prerel_end != '+')
+                while(*prerel_end && *prerel_end != '+')
                     prerel_end++;
 
                 prerelease.assign(curr, prerel_end);
@@ -127,7 +127,7 @@ namespace semverpp
                 curr++;
                 auto meta_end = curr;
 
-                while(*meta_end != '\0')
+                while(*meta_end)
                     meta_end++;
 
                 build_metadata.assign(curr, meta_end);
