@@ -214,4 +214,7 @@ TEST(VersionTest, OverallBehavior)
     
     auto ver = semverpp::version{"release-1.12.1-alpha.3.foo+buildnum19483824028"};
     EXPECT_TRUE(ver.patch == 1); 
+
+    auto ver2 = semverpp::version{"v1"};
+    EXPECT_TRUE(ver2.patch != 1); 
 }
