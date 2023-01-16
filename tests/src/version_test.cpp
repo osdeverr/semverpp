@@ -211,4 +211,7 @@ TEST(VersionTest, OverallBehavior)
     EXPECT_TRUE(semverpp::version{"1.7.4"} >= semverpp::version{"1.7"});
     
     EXPECT_TRUE(semverpp::version{"0.2-alpha"} < semverpp::version{"0.2-beta"});
+    
+    auto ver = semverpp::version{"release-1.12.1"};
+    EXPECT_TRUE(ver.patch == 1);
 }

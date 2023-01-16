@@ -78,37 +78,37 @@ namespace semverpp
         explicit version(std::string_view string)
         {
             auto curr = string.data();
+            auto end = string.data() + string.size();
 
             // Skip any non-digit characters from the version string
-            while (*curr && !std::isdigit(*curr))
+            while (curr != end && !std::isdigit(*curr))
                 curr++;
-
-            auto end = string.data() + string.size();
 
             std::from_chars_result result{};
 
             if ((result = std::from_chars(curr, end, major)).ptr == curr)
                 throw invalid_version(std::string{"in version "} + string.data() + ": failed to parse major version number");
+            curr = result.ptr;
 
-            if (*(curr + 1) && std::isdigit(*(curr + 2)))
+            if (curr + 1 < end && std::isdigit(*(curr + 1)))
             {
-                if (*(++curr) != separator)
+                if (*curr != separator)
                     throw invalid_version(std::string{"in version "} + string.data() + ": invalid separator");
 
                 if ((result = std::from_chars(++curr, end, minor)).ptr == curr)
                     throw invalid_version(std::string{"in version "} + string.data() + ": failed to parse minor version number");
+                curr = result.ptr;
                 
-                if (*(curr + 1) && std::isdigit(*(curr + 2)))
+                if (curr + 1 < end && std::isdigit(*(curr + 1)))
                 {
-                    if (*(++curr) != separator)
+                    if (*curr != separator)
                         throw invalid_version(std::string{"in version "} + string.data() + ": invalid separator");
 
                     if ((result = std::from_chars(++curr, end, patch)).ptr == curr)
                         throw invalid_version(std::string{"in version "} + string.data() + ": failed to parse patch version number");
+                    curr = result.ptr;
                 }
             }
-
-            curr++;
 
             if (*curr == '-')
             {
