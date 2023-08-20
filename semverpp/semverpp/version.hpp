@@ -2,8 +2,9 @@
 #include <stdexcept>
 #include <string>
 #include <ostream>
-#include <charconv>
 #include <cctype>
+
+#include "msstl/charconv.hpp"
 
 namespace semverpp
 {
@@ -84,9 +85,9 @@ namespace semverpp
             while (curr != end && !std::isdigit(*curr))
                 curr++;
 
-            std::from_chars_result result{};
+            msstl::from_chars_result result{};
 
-            if ((result = std::from_chars(curr, end, major)).ptr == curr)
+            if ((result = msstl::from_chars(curr, end, major)).ptr == curr)
                 throw invalid_version(std::string{"in version "} + string.data() + ": failed to parse major version number");
             curr = result.ptr;
 
@@ -95,7 +96,7 @@ namespace semverpp
                 if (*curr != separator)
                     throw invalid_version(std::string{"in version "} + string.data() + ": invalid separator");
 
-                if ((result = std::from_chars(++curr, end, minor)).ptr == curr)
+                if ((result = msstl::from_chars(++curr, end, minor)).ptr == curr)
                     throw invalid_version(std::string{"in version "} + string.data() + ": failed to parse minor version number");
                 curr = result.ptr;
                 
@@ -104,7 +105,7 @@ namespace semverpp
                     if (*curr != separator)
                         throw invalid_version(std::string{"in version "} + string.data() + ": invalid separator");
 
-                    if ((result = std::from_chars(++curr, end, patch)).ptr == curr)
+                    if ((result = msstl::from_chars(++curr, end, patch)).ptr == curr)
                         throw invalid_version(std::string{"in version "} + string.data() + ": failed to parse patch version number");
                     curr = result.ptr;
                 }
